@@ -46,11 +46,11 @@ public class ConceptoAdapter extends RecyclerView.Adapter<ConceptoAdapter.ViewHo
         int position = holder.getAdapterPosition() - 1;
 
         if (conceptos.get(position).isIngreso()) {
-            holder.getConcepto().setText("Ingreso " + (position +1));
+            holder.getConcepto().setText("Ingreso " + (position + 1));
             holder.getFondo().setBackgroundColor(activity.getResources().getColor(R.color.ingreso));
         } else {
             holder.getConcepto().setText("Gasto " + (position + 1));
-            if(conceptos.get(position).getCantidad() != 0)
+            if (conceptos.get(position).getCantidad() != 0)
                 holder.getFondo().setBackgroundColor(activity.getResources().getColor(R.color.gasto));
         }
         holder.getCantidad().setText(conceptos.get(position).getCantidad() + "€");

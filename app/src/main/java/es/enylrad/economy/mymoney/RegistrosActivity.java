@@ -2,11 +2,13 @@ package es.enylrad.economy.mymoney;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
@@ -15,11 +17,10 @@ import java.util.List;
 import java.util.Vector;
 
 import es.enylrad.economy.mymoney.fragment.GastosFragment;
-import es.enylrad.economy.mymoney.fragment.GraficaFragment;
 import es.enylrad.economy.mymoney.fragment.IngresosFragment;
 import es.enylrad.economy.mymoney.fragment.ResumenFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class RegistrosActivity extends AppCompatActivity {
 
     private MaterialViewPager mViewPager;
     private List<Fragment> fragments;
@@ -28,11 +29,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.registros_activity);
+
 
         mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
         ViewPager viewPager = mViewPager.getViewPager();
         viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+        viewPager.setCurrentItem(1);
 
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
 
@@ -42,20 +45,16 @@ public class MainActivity extends AppCompatActivity {
                 switch (page) {
                     case 0:
                         return HeaderDesign.fromColorResAndUrl(
-                                R.color.blue,
-                                "http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2014/06/wallpaper_51.jpg");
+                                R.color.gasto,
+                                "http://t2.uccdn.com/images/3/3/4/img_como_ahorrar_gastos_de_la_tarjeta_de_credito_7433_orig.jpg");
                     case 1:
                         return HeaderDesign.fromColorResAndUrl(
-                                R.color.gasto,
-                                "https://fs01.androidpit.info/a/63/0e/android-l-wallpapers-630ea6-h900.jpg");
+                                R.color.blue,
+                                "http://imagenes.es.sftcdn.net/blog/es/2008/03/finance.jpg");
                     case 2:
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.ingreso,
-                                "http://www.droid-life.com/wp-content/uploads/2014/10/lollipop-wallpapers10.jpg");
-                    case 3:
-                        return HeaderDesign.fromColorResAndUrl(
-                                R.color.red,
-                                "http://www.tothemobile.com/wp-content/uploads/2014/07/original.jpg");
+                                "https://gabrielmazzola.files.wordpress.com/2015/02/ingresos.jpg");
                 }
 
                 //execute others actions if needed (ex : modify your header logo)
@@ -64,12 +63,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        fragments = new Vector<>();
+        mViewPager.getToolbar().setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     public static class MyPagerAdapter extends FragmentStatePagerAdapter {
 
-        private static int NUM_ITEMS = 4;
+        private static int NUM_ITEMS = 3;
 
         public MyPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
@@ -85,14 +89,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0: // Fragment # 0 - This will show FirstFragment
-                    return ResumenFragment.newInstance(0, "Resumen");
-                case 1: // Fragment # 0 - This will show FirstFragment different title
+                case 0: // Fragment # 0 - This will show FirstFragment different title
                     return GastosFragment.newInstance(1, "Gastos");
+                case 1: // Fragment # 0 - This will show FirstFragment
+                    return ResumenFragment.newInstance(0, "Resumen");
                 case 2: // Fragment # 1 - This will show SecondFragment
                     return IngresosFragment.newInstance(2, "Ingresos");
-                case 3: // Fragment # 1 - This will show SecondFragment
-                    return GraficaFragment.newInstance(3, "Gráfico");
                 default:
                     return null;
             }
@@ -104,13 +106,11 @@ public class MainActivity extends AppCompatActivity {
 
             switch (position){
                 case 0:
-                    return "Resumen";
-                case 1:
                     return "Gastos";
+                case 1:
+                    return "Resumen";
                 case 2:
                     return "Ingresos";
-                case 3:
-                    return "Gráfico";
                 default:
                     return null;
             }

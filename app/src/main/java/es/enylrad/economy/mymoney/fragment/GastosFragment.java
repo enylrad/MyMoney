@@ -58,7 +58,7 @@ public class GastosFragment extends Fragment {
         return view;
     }
 
-    private void configRecyclerView(){
+    private void configRecyclerView() {
 
         ArrayList<Concepto> conceptos = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
@@ -77,7 +77,7 @@ public class GastosFragment extends Fragment {
 
     }
 
-    private void configReferences(){
+    private void configReferences() {
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.gastos_recycler);
 
